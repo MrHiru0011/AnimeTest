@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HilzNime - Personal Anime Library</title>
+    <link rel="stylesheet" href="anime-style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>🎬 HilzNime</h1>
+                <p>Personal Anime Library</p>
+            </div>
+
+            <nav class="nav-menu">
+                <button class="nav-btn active" onclick="showSection('library')">
+                    📚 Library
+                </button>
+                <button class="nav-btn" onclick="showSection('upload')">
+                    📤 Upload Video
+                </button>
+                <button class="nav-btn" onclick="showSection('watchlist')">
+                    ⭐ Watchlist
+                </button>
+                <button class="nav-btn" onclick="showSection('stats')">
+                    📊 Statistics
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>✨ Enjoy your anime!</p>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- LIBRARY SECTION -->
+            <section id="library" class="content-section active">
+                <div class="section-header">
+                    <h2>📚 Anime Library</h2>
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" placeholder="🔍 Cari anime..." onkeyup="filterAnime()">
+                    </div>
+                </div>
+
+                <div id="animeGrid" class="anime-grid">
+                    <!-- Cards akan di-generate JS -->
+                </div>
+            </section>
+
+            <!-- UPLOAD SECTION -->
+            <section id="upload" class="content-section">
+                <div class="section-header">
+                    <h2>📤 Upload Video Anime</h2>
+                </div>
+
+                <div class="upload-container">
+                    <form id="uploadForm" class="upload-form">
+                        <div class="form-group">
+                            <label>Judul Anime:</label>
+                            <input type="text" id="animeTitle" placeholder="Contoh: Jujutsu Kaisen" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Episode:</label>
+                            <input type="number" id="animeEpisode" placeholder="1" min="1" value="1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Video File:</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" id="videoFile" accept="video/*" required>
+                                <span id="fileLabel">Pilih file video...</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-upload">
+                            🚀 Upload Video
+                        </button>
+                    </form>
+
+                    <div id="uploadProgress" class="upload-progress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <p id="uploadStatus">Uploading...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WATCHLIST SECTION -->
+            <section id="watchlist" class="content-section">
+                <div class="section-header">
+                    <h2>⭐ Watchlist</h2>
+                </div>
+
+                <div id="watchlistContainer" class="anime-grid">
+                    <!-- Watchlist items -->
+                </div>
+            </section>
+
+            <!-- STATS SECTION -->
+            <section id="stats" class="content-section">
+                <div class="section-header">
+                    <h2>📊 Statistics</h2>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3>Total Anime</h3>
+                        <p class="stat-number" id="totalAnime">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Episodes</h3>
+                        <p class="stat-number" id="totalEpisodes">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Watchlist</h3>
+                        <p class="stat-number" id="totalWatchlist">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Rated</h3>
+                        <p class="stat-number" id="totalRated">0</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- PLAYER MODAL -->
+    <div id="playerModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="playerTitle">Now Playing</h2>
+                <button class="close-btn" onclick="closePlayer()">✕</button>
+            </div>
+            
+            <div class="video-container">
+                <video id="videoPlayer" controls>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="player-controls">
+                <div class="control-group">
+                    <label>Progress:</label>
+                    <input type="range" id="progressSlider" min="0" max="100" value="0" onchange="updateProgress()">
+                    <span id="progressPercent">0%</span>
+                </div>
+
+                <div class="control-group">
+                    <label>Rating:</label>
+                    <div class="rating-stars">
+                        <span class="star" onclick="setRating(1)">⭐</span>
+                        <span class="star" onclick="setRating(2)">⭐</span>
+                        <span class="star" onclick="setRating(3)">⭐</span>
+                        <span class="star" onclick="setRating(4)">⭐</span>
+                        <span class="star" onclick="setRating(5)">⭐</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Notes:</label>
+                    <textarea id="notesArea" placeholder="Catat impressi episode ini..."></textarea>
+                </div>
+
+                <button onclick="saveAnimeProgress()" class="btn-save">💾 Save Progress</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="anime-script.js"></script>
+</body>
+                          </html>
